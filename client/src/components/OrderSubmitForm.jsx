@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import { useUser } from "../context/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import config from '../config';
 
 const districts = ["Colombo", "Gampaha", "Kalutara", "Kandy", "Galle"]; // example list
 const deliveryTimes = ["10 AM", "11 AM", "12 PM"];
@@ -60,7 +61,7 @@ function OrderSubmitForm() {
 
     try {
       const res = await axios.post(
-        "https://localhost:3000/api/orders",
+        `${config.BASE_URL}/api/orders`,
         {
           mobileNumber: form.mobileNumber,
           address: {

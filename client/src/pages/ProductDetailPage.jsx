@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
+import config from "../config";
 
 function ProductDetailPage() {
   const { addToCart, cartItems } = useCart();
@@ -18,7 +19,7 @@ function ProductDetailPage() {
   // Fetch product details
   useEffect(() => {
     axios
-      .get(`https://localhost:3000/api/products/${id}`)
+      .get(`${config.BASE_URL}/api/products/${id}`)
       .then((response) => {
         setProduct(response.data);
         setLoading(false);
@@ -39,7 +40,7 @@ function ProductDetailPage() {
     if (!user) {
       console.log("user",user);
       alert("Please log in to add products to the cart!");
-      window.location("https://localhost:3000/login");
+      window.location(`${config.BASE_URL}/login`);
       return;
     }
 

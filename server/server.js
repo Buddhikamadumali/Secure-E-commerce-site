@@ -17,14 +17,14 @@ connectDB();
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: 'https://localhost:5174', credentials: true }));
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 
 
 const config = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.SECRET,
-  baseURL: process.env.BASE_URL,       // http://localhost:3000
+  baseURL: process.env.BASE_URL,       
   clientID: process.env.CLIENT_ID,
   issuerBaseURL: process.env.ISSUER_BASE_URL,
 };
@@ -36,10 +36,10 @@ app.use(auth(config));
 app.get('/', (req, res) => {
   if (req.oidc.isAuthenticated()) {
     // If logged in, redirect to frontend home page
-    res.redirect('https://localhost:5174'); // your frontend URL
+    res.redirect(process.env.FRONTEND_URL); // your frontend URL
   } else {
     // If not logged in, redirect to login page (or frontend login route)
-    res.redirect('https://localhost:5174'); // optional
+    res.redirect(process.env.FRONTEND_URL); // optional
   }
 });
 

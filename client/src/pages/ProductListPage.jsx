@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
+import config from "../config";
 
 function ProductListPage() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://localhost:3000/api/products") // adjust if your backend port/path is different
+      .get(`${config.BASE_URL}/api/products`) // adjust if your backend port/path is different
       .then((response) => {
         setProducts(response.data);
       })

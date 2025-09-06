@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
+import config from "../config";
 
 function HomePage() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://localhost:3000/api/products") // ✅ fetch from backend
+      .get(`${config.BASE_URL}/api/products`) // ✅ fetch from backend
       .then((response) => {
         setProducts(response.data);
       })

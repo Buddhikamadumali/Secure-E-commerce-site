@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
+import config from "../config";
 
 function OrderPage() {
   const { user } = useUser();
@@ -13,7 +14,7 @@ function OrderPage() {
 
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("https://localhost:3000/api/orders", {
+        const res = await axios.get(`${config.BASE_URL}/api/orders`, {
           withCredentials: true,
         });
         setOrders(res.data);
