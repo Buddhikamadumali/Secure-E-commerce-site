@@ -7,7 +7,7 @@ function ProductListPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/products") // adjust if your backend port/path is different
+      .get("https://localhost:3000/api/products") // adjust if your backend port/path is different
       .then((response) => {
         setProducts(response.data);
       })

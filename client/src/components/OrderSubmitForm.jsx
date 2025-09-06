@@ -60,7 +60,7 @@ function OrderSubmitForm() {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/orders",
+        "https://localhost:3000/api/orders",
         {
           mobileNumber: form.mobileNumber,
           address: {

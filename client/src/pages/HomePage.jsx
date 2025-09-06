@@ -9,7 +9,7 @@ function HomePage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/products") // ✅ fetch from backend
+      .get("https://localhost:3000/api/products") // ✅ fetch from backend
       .then((response) => {
         setProducts(response.data);
       })

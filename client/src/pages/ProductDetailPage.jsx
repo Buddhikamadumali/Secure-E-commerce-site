@@ -18,7 +18,7 @@ function ProductDetailPage() {
   // Fetch product details
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/products/${id}`)
+      .get(`https://localhost:3000/api/products/${id}`)
       .then((response) => {
         setProduct(response.data);
         setLoading(false);
@@ -39,7 +39,7 @@ function ProductDetailPage() {
     if (!user) {
       console.log("user",user);
       alert("Please log in to add products to the cart!");
-      window.location("http://localhost:3000/login");
+      window.location("https://localhost:3000/login");
       return;
     }
 

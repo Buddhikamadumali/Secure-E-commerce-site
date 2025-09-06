@@ -16,7 +16,7 @@ function Navbar() {
   // Fetch user info from backend OIDC session
   useEffect(() => {
     axios
-      .get("http://localhost:3000/profile", { withCredentials: true })
+      .get("https://localhost:3000/profile", { withCredentials: true })
       .then((res) => setUser(res.data))
       .catch(() => setUser(null));
   }, []);
@@ -77,7 +77,7 @@ function Navbar() {
         <div className="flex items-center space-x-10 font-medium">
           <ul className="hidden md:flex space-x-6">
             {!isAuthenticated && (
-              <a href="http://localhost:3000/login">
+              <a href="https://localhost:3000/login">
                 <button className="bg-orange-500 px-4 py-1 rounded hover:bg-orange-700 active:scale-105 active:ring-2 active:ring-orange-400 active:ring-offset-2 transition-all duration-200">
                   Log In
                 </button>
@@ -115,7 +115,7 @@ function Navbar() {
 
                     {/* Logout button */}
                     <a
-                      href="http://localhost:3000/logout"
+                      href="https://localhost:3000/logout"
                       className="mt-2 w-full bg-red-500 hover:bg-red-700 px-3 py-1 rounded text-white text-sm block text-center"
                     >
                       Logout
@@ -176,7 +176,7 @@ function Navbar() {
               </li>
               <li>
                 <a
-                  href="http://localhost:3000/logout"
+                  href="https://localhost:3000/logout"
                   className="w-full text-left text-red-500 block"
                 >
                   Logout
@@ -186,7 +186,7 @@ function Navbar() {
           ) : (
             <li>
               <a
-                href="http://localhost:3000/login"
+                href="https://localhost:3000/login"
                 className="w-full text-left text-orange-500 block"
               >
                 Log In

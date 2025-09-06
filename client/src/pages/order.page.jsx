@@ -13,7 +13,7 @@ function OrderPage() {
 
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/orders", {
+        const res = await axios.get("https://localhost:3000/api/orders", {
           withCredentials: true,
         });
         setOrders(res.data);

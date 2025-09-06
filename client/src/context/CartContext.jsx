@@ -22,7 +22,7 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     const fetchUserAndCart = async () => {
       try {
-        const cartRes = await axios.get(`http://localhost:3000/api/cart`, {
+        const cartRes = await axios.get(`https://localhost:3000/api/cart`, {
           withCredentials: true,
         });
         console.log("cart", cartRes.data);
@@ -46,7 +46,7 @@ export const CartProvider = ({ children }) => {
     console.log("add", user);
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/cart/add",
+        "https://localhost:3000/api/cart/add",
         {
           auth0Id: user.auth0Id,
           productId: product._id,
@@ -71,7 +71,7 @@ export const CartProvider = ({ children }) => {
     if (!user) return;
 
     try {
-      const res = await axios.delete("http://localhost:3000/api/cart/remove", {
+      const res = await axios.delete("https://localhost:3000/api/cart/remove", {
         data: { auth0Id: user.auth0Id, productId },
       });
       setCartItems(mapCartItems(res.data));
@@ -85,7 +85,7 @@ export const CartProvider = ({ children }) => {
     if (!user) return;
 
     try {
-      const res = await axios.post("http://localhost:3000/api/cart/add", {
+      const res = await axios.post("https://localhost:3000/api/cart/add", {
         auth0Id: user.auth0Id,
         productId,
         quantity: -1,
@@ -101,7 +101,7 @@ export const CartProvider = ({ children }) => {
     if (!user) return;
 
     try {
-      await axios.delete("http://localhost:3000/api/cart/clear", {
+      await axios.delete("https://localhost:3000/api/cart/clear", {
         data: { auth0Id: user.auth0Id },
       });
       setCartItems([]);

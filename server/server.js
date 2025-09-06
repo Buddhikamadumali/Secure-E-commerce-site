@@ -7,7 +7,9 @@ const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes")
 const { auth ,requiresAuth} = require('express-openid-connect');
 const handleAuth0Login = require('./middleware/handleAuth0Login');
-
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 dotenv.config();
 connectDB();
@@ -15,12 +17,7 @@ connectDB();
 const app = express();
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:5174",   // must match your frontend
-    credentials: true,                 // allow cookies/session headers
-  })
-);
+app.use(cors({ origin: 'https://localhost:5174', credentials: true }));
 
 
 const config = {
@@ -39,10 +36,10 @@ app.use(auth(config));
 app.get('/', (req, res) => {
   if (req.oidc.isAuthenticated()) {
     // If logged in, redirect to frontend home page
-    res.redirect('http://localhost:5174'); // your frontend URL
+    res.redirect('https://localhost:5174'); // your frontend URL
   } else {
     // If not logged in, redirect to login page (or frontend login route)
-    res.redirect('http://localhost:5174'); // optional
+    res.redirect('https://localhost:5174'); // optional
   }
 });
 
@@ -65,7 +62,10 @@ app.put("/profile", requiresAuth(), handleAuth0Login, async (req, res) => {
 });
 
 
-
+const httpsOptions = {
+  key: fs.readFileSync(path.resolve('./certs/key.key')),
+  cert: fs.readFileSync(path.resolve('./certs/cert.crt'))
+};
 
 
 const PORT = 3000;
@@ -75,9 +75,6 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", requiresAuth(), cartRoutes);
 app.use("/api/orders", requiresAuth(), orderRoutes);
 
-app.listen(PORT, (error) =>{
-    if(!error)
-        console.log("Server is running on port " + PORT);
-    else
-        console.log("Error occured,server can't start", error);
-})
+https.createServer(httpsOptions, app).listen(PORT, () => {
+  console.log(`HTTPS Backend running on https://localhost:${PORT}`);
+});
