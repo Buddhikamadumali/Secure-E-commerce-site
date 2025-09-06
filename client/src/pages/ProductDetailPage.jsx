@@ -2,19 +2,23 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import axios from "axios";
+import { useUser } from "../context/UserContext";
 
 function ProductDetailPage() {
-  const { addToCart } = useCart();
+  const { addToCart, cartItems } = useCart();
   const { id } = useParams();
   const navigate = useNavigate();
+    const { user } = useUser();
+
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
 
+  // Fetch product details
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/products/${id}`) // ✅ Fetch single product
+      .get(`http://localhost:3000/api/products/${id}`)
       .then((response) => {
         setProduct(response.data);
         setLoading(false);
@@ -25,26 +29,28 @@ function ProductDetailPage() {
       });
   }, [id]);
 
-  if (loading) {
+  if (loading)
     return <p className="text-center mt-10 text-gray-500">Loading product...</p>;
-  }
-
-  if (!product) {
+  if (!product)
     return <p className="text-center text-red-500 mt-10">Product not found!</p>;
-  }
 
   const handleAddToCart = async () => {
-    const success = await addToCart(product, quantity); // ✅ backend-connected addToCart
-    alert("product successfully added to the cart")
-    if (!success) {
+    // Check if the cart context is initialized (user logged in)
+    if (!user) {
+      console.log("user",user);
       alert("Please log in to add products to the cart!");
-      navigate("/login");
+      window.location("http://localhost:3000/login");
+      return;
+    }
+
+    const success = await addToCart(product, quantity);
+    if (success) {
+      alert("Product successfully added to the cart");
     }
   };
 
   return (
     <div className="mx-auto p-6 mt-15 bg-gradient-to-b from-gray-500 to-white">
-      {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
         className="mb-6 bg-gray-700 text-white px-5 py-2 rounded-lg font-semibold hover:bg-gray-800 transition duration-300"
@@ -80,12 +86,10 @@ function ProductDetailPage() {
               className="w-20 border rounded-md text-center p-1"
               min="1"
             />
-            <span className="text-sm text-gray-500">
-              (In stock: {product.stock})
-            </span>
+            <span className="text-sm text-gray-500">(In stock: {product.stock})</span>
           </div>
 
-          {/* Add to Cart */}
+          {/* Add to Cart Button */}
           <button
             onClick={handleAddToCart}
             className="bg-orange-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-600 transition duration-300 mt-6"

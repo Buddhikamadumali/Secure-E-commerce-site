@@ -1,12 +1,13 @@
 const express = require("express");
 const { addToCart, getCart, removeFromCart, clearCart } = require("../controllers/cartController");
-const { protect} = require("../middleware/authMiddleware");
+const { requiresAuth } = require("express-openid-connect");
 
 const router = express.Router();
 
-router.post("/add" , protect, addToCart);
-router.get("/" , protect, getCart);
-router.delete("/remove" , protect, removeFromCart);
-router.delete("/clear", protect, clearCart);
+// Ensure only authenticated users can use cart APIs
+router.post("/add", addToCart);
+router.get("/", requiresAuth(), getCart);
+router.delete("/remove", requiresAuth(), removeFromCart);
+router.delete("/clear", requiresAuth(), clearCart);
 
 module.exports = router;

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import ProductCard from '../components/ProductCard';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import ProductCard from "../components/ProductCard";
 
 function ProductListPage() {
   const [products, setProducts] = useState([]);
@@ -19,7 +19,6 @@ function ProductListPage() {
   return (
     <main className="bg-gradient-to-b from-gray-500 to-white min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-10">
-        
         {/* Page Title */}
         <h1 className="text-3xl md:text-3xl font-bold text-black text-center mb-10">
           All Products
@@ -30,7 +29,7 @@ function ProductListPage() {
           {products.length > 0 ? (
             products.map((product) => (
               <ProductCard
-                key={product._id}  // assuming MongoDB _id
+                key={product._id} // assuming MongoDB _id
                 id={product._id}
                 image={product.image}
                 name={product.name}
