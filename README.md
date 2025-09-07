@@ -89,7 +89,7 @@ npm run dev
 ````
 
 
-Frontend runs at: http://localhost:5174
+Frontend runs at: https://localhost:5174
 
 Database Setup
 
