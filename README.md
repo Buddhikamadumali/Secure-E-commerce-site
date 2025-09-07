@@ -44,7 +44,7 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone <https://github.com/Buddhikamadumali/Secure-E-commerce-site>
+git clone https://github.com/Buddhikamadumali/Secure-E-commerce-site
 cd timezone
 
 2. Backend Setup
